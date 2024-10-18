@@ -118,8 +118,9 @@ class HFLM(TemplateLM):
             # using one process with no model parallelism
             if not (parallelize or accelerator.num_processes > 1):
                 # use user-passed device
+                # add gpu to add support for intel gpu and xpu
                 device_list = set(
-                    ["cuda", "cpu"]
+                    ["cuda", "cpu", "gpu"] 
                     + [f"cuda:{i}" for i in range(gpus)]
                     + ["mps", "mps:0"]
                     + [f"npu:{i}" for i in range(gpus)]
